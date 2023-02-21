@@ -1,46 +1,31 @@
-#include "main.h"
+#include <stdio.h>
+
 /**
- * print_times_table - prints the times table for n.
- * @n: The multiplication table requested.
- * Return: Nothing.
- */
-void print_times_table(int n)
+*main- prints the largest prime factor
+*of a number
+*
+*Return: returns 0
+*/
+
+int main(void)
 {
-int i, j, multi;
-if (!(n > 15 || n < 0))
+long number = 612852475143;
+int inc;
+while (inc++ < number / 2)
 {
-for (i = 0; i <= n; i++)
+if (number % inc == 0)
 {
-for (j = 0; j <= n; j++)
-{
-multi = (i * j);
-if (j != 0)
-{
-putchar(',');
-putchar(' ');
+number /= 2;
+continue;
 }
-if (multi < 10 && j != 0)
+
+for (inc = 3; inc < number / 2; inc += 2)
 {
-putchar(' ');
-putchar(' ');
-putchar((multi % 10) + '0');
-}
-else if (multi >= 10 && multi < 100)
-{
-putchar(' ');
-putchar((multi / 10) + '0');
-putchar((multi % 10) + '0');
-}
-else if (multi >= 100 && j != 0)
-{
-putchar((multi / 100) + '0');
-putchar((multi / 10) % 10 + '0');
-putchar((multi % 10) + '0');
-}
-else
-putchar((multi % 10) + '0');
-}
-putchar('\n');
+if (number % inc == 0)
+number /= inc;
+
 }
 }
+printf("%ld\n", number);
+return (0);
 }
