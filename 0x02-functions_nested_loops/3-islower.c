@@ -1,13 +1,20 @@
 #include <stdio.h>
 /**
- *int _islower(int c) checks for lowercase character.
- *
- * Return: Always 0.
- */
+* _islower - function to check for lowercase char
+* @c: first operand
+*
+* Description:check for lowercase letters
+* Return: 1 if c is lowercase, 0 otherwise
+*/
 int _islower(int c)
 {
-if (c >= 'a' && c <= 'z')
-return (1);
-else
-return (0);
+	if (c >= 97 && c <= 122)
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
+	return (c);
 }
