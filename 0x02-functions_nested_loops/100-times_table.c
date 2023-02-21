@@ -1,49 +1,46 @@
 #include "main.h"
-
 /**
- * print_times_table - prints the n times table, starting with 0
- * @n: number of the times table
+ * print_times_table - prints the times table for n.
+ * @n: The multiplication table requested.
+ * Return: Nothing.
  */
 void print_times_table(int n)
 {
-int i, j, k;
-if (n >= 0 && n <= 15)
+int i, j, multi;
+if (!(n > 15 || n < 0))
 {
 for (i = 0; i <= n; i++)
 {
 for (j = 0; j <= n; j++)
 {
-k = j * i;
-if (j == 0)
+multi = (i * j);
+if (j != 0)
 {
-_putchar(k + '0');
+putchar(',');
+putchar(' ');
 }
-else if (k < 10 && j != 0)
+if (multi < 10 && j != 0)
 {
-_putchar(',');
-_putchar(' ');
-_putchar(' ');
-_putchar(' ');
-_putchar(k + '0');
+putchar(' ');
+putchar(' ');
+putchar((multi % 10) + '0');
 }
-else if (k >= 10 && k < 100)
+else if (multi >= 10 && multi < 100)
 {
-_putchar(',');
-_putchar(' ');
-_putchar(' ');
-_putchar((k / 10) + '0');
-_putchar((k % 10) + '0');
+putchar(' ');
+putchar((multi / 10) + '0');
+putchar((multi % 10) + '0');
 }
-else if (k >= 100)
+else if (multi >= 100 && j != 0)
 {
-_putchar(',');
-_putchar(' ');
-_putchar((k / 100) + '0');
-_putchar(((k / 10) % 10) + '0');
-_putchar((k % 10) + '0');
+putchar((multi / 100) + '0');
+putchar((multi / 10) % 10 + '0');
+putchar((multi % 10) + '0');
 }
+else
+putchar((multi % 10) + '0');
 }
-_putchar('\n');
+putchar('\n');
 }
 }
 }
