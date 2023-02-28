@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "main.h"
-
 /**
 *_puts - function
 * @str: first operand and pointer
@@ -10,10 +9,11 @@
 */
 void _puts(char *str)
 {
-	while (*str != '\0')
-	{
-		_putchar(*str);
-		str++;
-	}
-	_putchar(10);
+int i = 0;
+while (str[i])
+{
+putchar(str[i]);
+i++;
+}
+putchar('\n');
 }
