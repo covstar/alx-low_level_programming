@@ -1,5 +1,4 @@
 #include "main.h"
-#include <stdio.h>
 /**
 * puts2 - function
 * @str: string operand
@@ -9,20 +8,23 @@
 */
 void puts2(char *str)
 {
-	int counter = 0;
+	int longi = 0;
 	int i = 0;
+	char *y = str;
+	int o;
 
-	while (str[i])
+	while (*y != '\0')
 	{
-		counter++;
-		i++;
+		longi++;
+		y++;
 	}
-	for (i = 0; i < counter; i++)
+	i = longi - 1;
+	for (o = 0; o < i; o++)
 	{
-		if (i % 2 == 0)
-		{
-		_putchar(str[i]);
-		}
+		if (o % 2 == 0)
+	{
+		_putchar(str[o]);
 	}
-	_putchar(10);
+	}
+	_putchar('\n');
 }
