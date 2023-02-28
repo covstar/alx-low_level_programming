@@ -1,26 +1,28 @@
-#include <stdio.h>
 #include "main.h"
-
+#include <stdio.h>
 /**
- * void puts_half(char *str)  prints half of a string, followed by a new line.
- *
- * Return: Always 0.
- */
-void puts_half(char *str)
+* puts2 - function
+* @str: string operand
+*
+* Description: print every other char of a string starting with 1stw/ \n
+* Return: string
+*/
+void puts2(char *str)
 {
-int i = 0, n;
+	int counter = 0;
+	int i = 0;
 
-while (i >= 0)
-{
-if (str[i] == '\0')
-break;
-i++;
-}
-if (i % 2 == 1)
-n = i / 2;
-else
-n = (i - 1) / 2;
-for (n++; n < i; n++)
-putchar(str[n]);
-putchar('\n');
+	while (str[i])
+	{
+		counter++;
+		i++;
+	}
+	for (i = 0; i < counter; i++)
+	{
+		if (i % 2 == 0)
+		{
+		_putchar(str[i]);
+		}
+	}
+	_putchar(10);
 }
