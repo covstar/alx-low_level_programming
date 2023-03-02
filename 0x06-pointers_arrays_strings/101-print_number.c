@@ -1,25 +1,28 @@
 #include "main.h"
-
+#define ROT13IN  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+#define ROT13OUT "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm"
 /**
-  * print_number - Prints any integer with putchar
-  * @n: Number to prints
-  *
-  * Return: Nothing
-  */
+ * print_number - using only _putchar
+ * @n: the integer to print
+ * Return: void
+ */
+
 void print_number(int n)
 {
-	unsigned int x;
+	int a, c;
 
 	if (n < 0)
-	{
 		_putchar('-');
-		n *= -1;
+	for (c = 0, a = 1000000000; a > 0; a /= 10)
+	{
+		int d = (n / a) % 10;
+
+		d = d < 0 ? -d : d;
+		if (d || c || a == 1)
+		{
+			_putchar(d + '0');
+			c++;
+		}
+
 	}
-
-	x = n;
-
-	if (x / 10)
-		print_number(x / 10);
-
-	_putchar(x % 10 + '0');
 }
