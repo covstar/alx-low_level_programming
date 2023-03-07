@@ -1,24 +1,24 @@
+/*
+ * File: 7-print_chessboard.c
+ * Auth: sam tech (samuel birhanu)
+ */
+
 #include "main.h"
 
 /**
- * print_chessboard - prints an array of chars as a chessboard
- * @a: the array to be printed
- * Return: nothing
+ * print_chessboard - Prints a chessboard.
+ * @a: The chessboard to be printed.
  */
 void print_chessboard(char (*a)[8])
 {
-	int row;
-	int col;
+	int indx1, indx2;
 
-	for (row = 0; row < 8; row++) {
+	for (indx1 = 0; a[indx1][7]; indx1++) {
+		for (indx2 = 0; indx2 < 8; indx2++) {
+		
+			_putchar(a[indx1][indx2]);
 
-		for (col = 0; col < 8; col++) {
-			if (col == 7) {
-				_putchar(a[row][col]);
-				_putchar('\n');
-			}
-			else {
-				_putchar(a[row][col]);
-			}
+		_putchar('\n');
 		}
 	}
+}
