@@ -7,22 +7,18 @@
  */
 void print_chessboard(char (*a)[8])
 {
-	int row = 0;
+	int row;
 	int col;
 
-	while (row < 8)
-	{
-		col = 0;
-		while (col < 8)
-		{
-			if (col == 7)
-			{
+	for (row = 0; row < 8; row++) {
+
+		for (col = 0; col < 8; col++) {
+			if (col == 7) {
 				_putchar(a[row][col]);
 				_putchar('\n');
 			}
-			else
+			else {
 				_putchar(a[row][col]);
-			col++;
+			}
 		}
-		row++;
 	}
