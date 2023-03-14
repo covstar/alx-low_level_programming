@@ -1,34 +1,55 @@
 #include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 /**
- * main - check the code for ALX School students.
- *
- * Return: Always 0.
+ * _strlen - length a string
+ * @s: string in questions
+ * Return: string length as an int
  */
+int _strlen(char *s)
+{
+	if (*s == '\0')
+		return (0);
+	return (1 + _strlen(s + 1));
+}
 
-char *str_concat(char *s1, char *s2) {
-    char *result;
-    unsigned int s1_length, s2_length;
+/**
+ * str_concat - concatenates two strings
+ * @s1: pointer to string one
+ * @s2: pointer to string two
+ * Return: pointer to newly created string
+ */
+char *str_concat(char *s1, char *s2)
+{
+	char *new;
+	unsigned int size1, size2, idx1, idx2;
 
-    if (s1 == NULL) {
-        s1 = "";
-    }
+	if (s1 == NULL)
+		s1 = "";
 
-    if (s2 == NULL) {
-        s2 = "";
-    }
+	if (s2 == NULL)
+		s2 = "";
 
-    s1_length = strlen(s1);
-    s2_length = strlen(s2);
+	size1 = _strlen(s1);
+	size2 = _strlen(s2);
 
-    result = (char *)malloc(s1_length + s2_length + 1);
+	new = malloc(sizeof(*s1) * (size1 + size2 + 1));
 
-    if (result == NULL) {
-        return NULL;
-    }
+	if (new == NULL)
+		return (NULL);
 
-    strcpy(result, s1);
-    strcat(result, s2);
+	idx1 = 0;
+	while (idx1 < size1)
+	{
+		new[idx1] = s1[idx1];
+		idx1++;
+	}
 
-    return result;
+	idx2 = 0;
+	while (idx2 <= size2)
+	{
+		new[idx1] = s2[idx2];
+		idx1++;
+		idx2++;
+	}
+	return (new);
 }

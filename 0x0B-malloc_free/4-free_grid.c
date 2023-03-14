@@ -1,18 +1,18 @@
 #include <stdlib.h>
 /**
- * print_grid - prints a grid of integers
- * @grid: the address of the two dimensional grid
- * @width: width of the grid
- * @height: height of the grid
- *
- * Return: Nothing.
+ * free_grid - frees a 2d grid previously created by malloc
+ * @grid: a pointer to the first array in the grid
+ * @height: the grid height
+ * Return: nothing
  */
-void free_grid(int **grid, int height) {
-    int i;
+void free_grid(int **grid, int height)
+{
+	int idx = 0;
 
-    for (i = 0; i < height; i++) {
-        free(grid[i]);
-    }
-
-    free(grid);
+	while (idx < height)
+	{
+		free(grid[idx]);
+		idx++;
+	}
+	free(grid);
 }

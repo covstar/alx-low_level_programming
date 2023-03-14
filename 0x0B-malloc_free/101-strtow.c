@@ -1,107 +1,102 @@
+#include "main.h"
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+
+int word_len(char *str);
+int count_words(char *str);
+char **strtow(char *str);
+
 /**
- * print_tab - Prints an array of string
- * @tab: The array to print
+ * word_len - Locates the index marking the end of the
+ *            first word contained within a string.
+ * @str: The string to be searched.
  *
- * Return: nothing
+ * Return: The index marking the end of the initial word pointed to by str.
  */
-int count_words(char *);
-char **allocate_memory(int, char *);
-void free_memory(char **, int);
+int word_len(char *str)
+{
+	int index = 0, len = 0;
 
-char **strtow(char *str) {
-    int i, j, k;
-    int words, len;
-    char **word_array;
+	while (*(str + index) && *(str + index) != ' ')
+	{
+		len++;
+		index++;
+	}
 
-    if (str == NULL || *str == '\0') {
-        return NULL;
-    }
-
-    words = count_words(str);
-    word_array = allocate_memory(words, str);
-
-    if (word_array == NULL) {
-        return NULL;
-    }
-
-    i = 0;
-    k = 0;
-
-    while (str[i]) {
-        while (isspace(str[i])) {
-            i++;
-        }
-
-        if (str[i] == '\0') {
-            break;
-        }
-
-        len = 0;
-
-        while (str[i + len] && !isspace(str[i + len])) {
-            len++;
-        }
-
-        word_array[k] = (char *) malloc(sizeof(char) * (len + 1));
-
-        if (word_array[k] == NULL) {
-            free_memory(word_array, k);
-            return NULL;
-        }
-
-        for (j = 0; j < len; j++) {
-            word_array[k][j] = str[i + j];
-        }
-
-        word_array[k][j] = '\0';
-        k++;
-        i += len;
-    }
-
-    word_array[k] = NULL;
-
-    return word_array;
+	return (len);
 }
 
-int count_words(char *str) {
-    int i, count;
+/**
+ * count_words - Counts the number of words contained within a string.
+ * @str: The string to be searched.
+ *
+ * Return: The number of words contained within str.
+ */
+int count_words(char *str)
+{
+	int index = 0, words = 0, len = 0;
 
-    count = 0;
+	for (index = 0; *(str + index); index++)
+		len++;
 
-    for (i = 0; str[i]; i++) {
-        if (!isspace(str[i]) && (isspace(str[i + 1]) || str[i + 1] == '\0')) {
-            count++;
-        }
-    }
+	for (index = 0; index < len; index++)
+	{
+		if (*(str + index) != ' ')
+		{
+			words++;
+			index += word_len(str + index);
+		}
+	}
 
-    return count;
+	return (words);
 }
 
-char **allocate_memory(int words, char *str) {
-    char **word_array;
+/**
+ * strtow - Splits a string into words.
+ * @str: The string to be split.
+ *
+ * Return: If str = NULL, str = "", or the function fails - NULL.
+ *         Otherwise - a pointer to an array of strings (words).
+ */
+char **strtow(char *str)
+{
+	char **strings;
+	int index = 0, words, w, letters, l;
 
-    word_array = (char **) malloc(sizeof(char *) * (words + 1));
+	if (str == NULL || str[0] == '\0')
+		return (NULL);
 
-    if (word_array == NULL) {
-        return NULL;
-    }
+	words = count_words(str);
+	if (words == 0)
+		return (NULL);
 
-    if (words == 1 && !isspace(*str)) {
-        word_array[0] = (char *) malloc(sizeof(char) * (strlen(str) + 1));
-    }
+	strings = malloc(sizeof(char *) * (words + 1));
+	if (strings == NULL)
+		return (NULL);
 
-    return word_array;
-}
+	for (w = 0; w < words; w++)
+	{
+		while (str[index] == ' ')
+			index++;
 
-void free_memory(char **word_array, int words) {
-    int i;
+		letters = word_len(str + index);
 
-    for (i = 0; i < words; i++) {
-        free(word_array[i]);
-    }
+		strings[w] = malloc(sizeof(char) * (letters + 1));
 
-    free(word_array);
+		if (strings[w] == NULL)
+		{
+			for (; w >= 0; w--)
+				free(strings[w]);
+
+			free(strings);
+			return (NULL);
+		}
+
+		for (l = 0; l < letters; l++)
+			strings[w][l] = str[index++];
+
+		strings[w][l] = '\0';
+	}
+	strings[w] = NULL;
+
+	return (strings);
 }
