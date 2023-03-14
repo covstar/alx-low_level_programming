@@ -1,26 +1,44 @@
 #include <stdlib.h>
-#include <string.h>
 /**
- * main - check the code for ALX School students.
- *
- * Return: Always 0.
+ * _strlen - length a string
+ * @s: string in questions
+ * Return: string length as an int
  */
+int _strlen(char *s)
+{
+	if (*s == '\0')
+		return (0);
+	return (1 + _strlen(s + 1));
+}
 
-char *_strdup(char *str) {
-    char *duplicate;
-    unsigned int length;
+/**
+ * _strdup - returns a pointer to a space in memory containing copy of a string
+ * @str: the string to be copied
+ *
+ * Return: pointer to the memory allocation
+ */
+char *_strdup(char *str)
+{
+	char *s;
+	unsigned int size;
+	unsigned int idx;
 
-    if (str == NULL) {
-        return NULL;
-    }
+	if (str == NULL)
+		return (NULL);
 
-    length = strlen(str);
-    duplicate = (char *)malloc(length + 1);
+	size = _strlen(str) + 1;
 
-    if (duplicate == NULL) {
-        return NULL;
-    }
+	s = malloc(sizeof(char) * size);
 
-    strcpy(duplicate, str);
-    return duplicate;
+	if (s == NULL)
+		return (NULL);
+
+	idx = 0;
+	while (idx < size)
+	{
+		s[idx] = str[idx];
+		idx++;
+	}
+
+	return (s);
 }
