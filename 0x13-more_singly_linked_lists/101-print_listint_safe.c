@@ -3,113 +3,34 @@
 #include "lists.h"
 
 /**
- * free_ptrlist2 - frees a ptrhold list
- * @head: a pointer to the start of the list
- * Return: nothing.
+ * print_listint_safe - function that prints a linked list with a loop safely.
+ * @head: pointer to the 1st node of the linked list
+ * Return: number of nodes in the list
  */
-void free_ptrlist2(ptrhold *head)
+size_t print_listint_safe(const listint_t *head)
 {
-	ptrhold *temp;
+	const listint_t *tmp_n = NULL;
+	const listint_t *l_n = NULL;
+	size_t counter = 0;
+	size_t new_n;
 
-	if (head == NULL)
-		return;
-
-	while (head != NULL)
+	tmp_n = head;
+	while (tmp_n)
 	{
-		temp = head->next;
-		free(head);
-		head = temp;
-	}
-}
-
-/**
- * add_node2 - adds a new node at the beginning of a list
- * @head: a pointer to a pointer to the start of the list
- * @hold: the integer to be inserted in the new node
- * Return: address of the new element
- */
-ptrhold *add_node2(ptrhold **head, listint_t *hold)
-{
-	ptrhold *new;
-
-	if (head == NULL)
-		return (NULL);
-
-	new = malloc(sizeof(*new));
-
-	if (new == NULL)
-	{
-		free_ptrlist2(*head);
-		return (NULL);
-	}
-
-	new->hold = hold;
-	new->next = *head;
-	*head = new;
-
-	return (*head);
-}
-
-/**
- * node_address_compare2 - checks for a match between the address
- * held in ptrhold and the address passed as nextnode
- * @head: the start of the ptrhold list
- * @nextnode: the address to be checked for in ptrhold list
- * Return: 1 for a match, 0 for no match
- */
-int node_address_compare2(ptrhold *head, listint_t *nextnode)
-{
-	while (head != NULL)
-	{
-		if (head->hold == (void *)nextnode)
+		new_n = (size_t)tmp_n;
+		if (new_n >= (size_t)tmp_n->next && tmp_n->next != NULL)
 		{
-			return (1);
+			l_n = tmp_n->next;
+			counter++;
+			printf("[%p] %d\n", (void *)tmp_n, tmp_n->n);
+			printf("-> [%p] %d\n", (void *)l_n, l_n->n);
+			break;
 		}
-		head = head->next;
+		counter++;
+		printf("[%p] %d\n", (void *)tmp_n, tmp_n->n);
+		tmp_n = tmp_n->next;
 	}
-	return (0);
-}
-
-/**
- * free_listint_safe - frees a list with or without a loop, identifies
- * number loop elements
- * @h: a pointer to a pointer to the start of the list
- * Return: size of the list that was free'd
- */
-size_t free_listint_safe(listint_t **h)
-{
-	ptrhold *ptrListHead;
-	listint_t *listintTmp;
-	int count, loop;
-
-	if (h == NULL)
-		return (0);
-
-	ptrListHead = NULL;
-	count = 0;
-
-	while (*h != NULL)
-	{
-		add_node2(&ptrListHead, *h);
-
-		if (ptrListHead == NULL)
-			return (count);
-
-		listintTmp = (*h)->next;
-		free(*h);
-		count++;
-
-		loop = node_address_compare2(ptrListHead, listintTmp);
-
-		if (loop == 1)
-		{
-			free_ptrlist2(ptrListHead);
-			*h = NULL;
-			return (count);
-		}
-		*h = listintTmp;
-	}
-	free_ptrlist2(ptrListHead);
-
-	return (count);
+	if (!l_n)
+		counter++;
+	return (counter);
 }
