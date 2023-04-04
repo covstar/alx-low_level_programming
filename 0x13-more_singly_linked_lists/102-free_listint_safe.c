@@ -3,27 +3,30 @@
 #include "lists.h"
 
 /**
- * free_listint_safe - Frees a listint_t list.
- * @h: A pointer to the address of the head of the list_t list.
+ * free_listint_safe - frees a linked list.
+ * @h: head of a list.
  *
- * Return: The size of the list that was free'd.
+ * Return: size of the list that was free'd.
  */
 size_t free_listint_safe(listint_t **h)
 {
+	listint_t *current;
+	listint_t *next;
 	size_t count = 0;
-	listint_t *temp;
 
-	while (*h)
+	if (h == NULL || *h == NULL)
+		return (count);
+
+	current = *h;
+	while (current != NULL)
 	{
 		count++;
-		if (*h <= (*h)->next)
-		{
-			free(*h);
+		next = current->next;
+		free(current);
+		if (current <= next)
 			break;
-		}
-		temp = (*h)->next;
-		free(*h);
-		*h = temp;
+		current = next;
 	}
+	*h = NULL;
 	return (count);
 }
